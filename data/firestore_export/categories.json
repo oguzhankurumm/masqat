@@ -1,0 +1,324 @@
+[
+  {
+    "id": "179b14n1fEkh6z8E3jgn",
+    "order": 5,
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "title": "Apperativ",
+    "isActive": true,
+    "iconName": "hamburger",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "createdAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "2ErAq06o6QgZmhCUDtjG",
+    "iconName": "dessert",
+    "isActive": true,
+    "title": "Desserts",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "isMainCategory": true,
+    "order": 4,
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "BRaB8dmxhnwY1OkBarp2",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "2ErAq06o6QgZmhCUDtjG",
+    "iconName": "dessert",
+    "title": "Warme Desserts",
+    "isActive": true,
+    "createdAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "HCaj9VF9GBN1of83CwhR",
+    "title": "Burgers",
+    "iconName": "hamburger",
+    "isActive": true,
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "order": 1,
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "HOYxYkp4hY0tKA5hZVd6",
+    "updatedAt": "2025-09-16T16:33:17.719Z",
+    "order": 0,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "2ErAq06o6QgZmhCUDtjG",
+    "iconName": "dessert",
+    "isActive": true,
+    "description": "",
+    "title": "Desserts"
+  },
+  {
+    "id": "IiYWViPep05MvNaTQSmd",
+    "order": 2,
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "isActive": true,
+    "iconName": "martini",
+    "title": "Alk. Cocktails",
+    "createdAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "JConUqRJ7Zft4TqUFhy3",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj",
+    "title": "Dips und Saucen",
+    "isActive": true,
+    "iconName": "hamburger",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 6
+  },
+  {
+    "id": "JNYEnzYtGqTU6IZ09fbK",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 2,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj",
+    "title": "Wraps",
+    "isActive": true,
+    "iconName": "hamburger"
+  },
+  {
+    "id": "MudIDPogWNTN6fqNb6h0",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "title": "Obst + Snacks",
+    "isActive": true,
+    "iconName": "hamburger",
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 4
+  },
+  {
+    "id": "NCTJJmdg74POOYLYdbIj",
+    "title": "Food",
+    "iconName": "hamburger",
+    "isActive": true,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "isMainCategory": true,
+    "order": 1,
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "OIywCSgRhOTvpIX3Co3U",
+    "iconName": "desserts",
+    "isActive": true,
+    "title": "Kalte Desserts",
+    "parentCategoryId": "2ErAq06o6QgZmhCUDtjG",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "R54in25sbmkWTJBf3nHC",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 2,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "isMainCategory": true,
+    "title": "Drinks",
+    "isActive": true,
+    "iconName": "pint-glass"
+  },
+  {
+    "id": "T9L6asVZga9q9TlKbnFz",
+    "order": 3,
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "title": "Shisha",
+    "isActive": true,
+    "iconName": "crown",
+    "isMainCategory": true,
+    "createdAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "UbUWYRURoBW9eXFuaCcE",
+    "isActive": true,
+    "title": "Shisha Erklärung",
+    "iconName": "crown",
+    "parentCategoryId": "T9L6asVZga9q9TlKbnFz",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "order": 3,
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "UfkZctE5Kf5ZiBdWdcYl",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 8,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "title": "Shots",
+    "iconName": "hamburger",
+    "isActive": true
+  },
+  {
+    "id": "XhogAfhxIpRaqep510TV",
+    "order": 4,
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "iconName": "martini",
+    "title": "Soda & Limos",
+    "isActive": true,
+    "createdAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "bvQbgSkKoQ1ORtlDWrf3",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "isActive": true,
+    "iconName": "beer-stein",
+    "title": "Bier",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 7
+  },
+  {
+    "id": "ctjXga3C8UD899rk788C",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 1,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "title": "Alkfrei. Cocktails",
+    "iconName": "brandy",
+    "isActive": true
+  },
+  {
+    "id": "dC51AJUKjEOoeWKixTJS",
+    "order": 9,
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "title": "Flaschen",
+    "isActive": true,
+    "iconName": "hamburger",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "createdAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "eESFYPi9bA0fMkT3hrcc",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj",
+    "isActive": true,
+    "iconName": "hamburger",
+    "title": "Sandwich"
+  },
+  {
+    "id": "hIvEBiRqHkcHigxL8FLf",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 5,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "iconName": "hamburger",
+    "isActive": true,
+    "title": "Dessert",
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj"
+  },
+  {
+    "id": "i2HpD14jbvTBm8VZgJRw",
+    "isMainCategory": true,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "title": "Angebote",
+    "isActive": true,
+    "iconName": "percent",
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "kHmucSJiGn3PcG4kcJue",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "i2HpD14jbvTBm8VZgJRw",
+    "title": "Angebote",
+    "iconName": "crown",
+    "isActive": true,
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "lHuvu8kK5Ug28cSuHHmV",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "T9L6asVZga9q9TlKbnFz",
+    "title": "Shisha",
+    "iconName": "cigarette",
+    "isActive": true,
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 1
+  },
+  {
+    "id": "m5VHVzMlNqBD9e9iFaqo",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "isActive": true,
+    "iconName": "pint-glass",
+    "title": "Drinks",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "order": 3,
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "o1BDR4RZ57OPDgJjaBxG",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "isActive": true,
+    "iconName": "hamburger",
+    "title": "Fingerfoods",
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj",
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "ojed70UJhdQa1m1O2JwR",
+    "parentCategoryId": "T9L6asVZga9q9TlKbnFz",
+    "title": "Masq Special Shisha",
+    "isActive": true,
+    "iconName": "hamburger",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "order": 2,
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "opkKf8HeAEESLGAgJnkQ",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 4,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "title": "Longdrinks",
+    "isActive": true,
+    "iconName": "hamburger",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC"
+  },
+  {
+    "id": "p0c3lVjyaoyIBSTFWeEY",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "order": 6,
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "title": "Wein",
+    "iconName": "wine",
+    "isActive": true
+  },
+  {
+    "id": "tTFFoazdaCOg9xZZqgd3",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "R54in25sbmkWTJBf3nHC",
+    "title": "Kaffe | Tee",
+    "isActive": true,
+    "iconName": "hamburger",
+    "createdAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "u92hIsxYTFWidozfNpUn",
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj",
+    "iconName": "hamburger",
+    "isActive": true,
+    "title": "Toast",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "order": 3,
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "yOT73qxSNesp8Zk0gwKa",
+    "title": "Eis",
+    "isActive": true,
+    "iconName": "desserts",
+    "parentCategoryId": "2ErAq06o6QgZmhCUDtjG",
+    "createdAt": "2025-09-16T16:36:13.375Z",
+    "updatedAt": "2025-09-16T16:36:13.375Z"
+  },
+  {
+    "id": "ziwaze6phVKJIPngvtle",
+    "updatedAt": "2025-09-16T16:36:13.375Z",
+    "parentCategoryId": "NCTJJmdg74POOYLYdbIj",
+    "title": "Salad",
+    "isActive": true,
+    "iconName": "hamburger",
+    "createdAt": "2025-09-16T16:36:13.375Z"
+  }
+]
