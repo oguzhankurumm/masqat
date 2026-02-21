@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { 
-  listCategories, 
+import {
+  listCategories,
   getCategory,
-  createCategory, 
-  updateCategory, 
-  deleteCategory 
+  createCategory,
+  updateCategory,
+  deleteCategory
 } from "@/lib/db/categories";
 import { countProductsByCategory } from "@/lib/db/products";
 import { type Category } from "@/types/category";
@@ -15,6 +15,24 @@ export function useCategories(isActiveOnly = false) {
     queryKey: ["categories", isActiveOnly],
     queryFn: () => listCategories(isActiveOnly),
     staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+}
+
+export function useMainCategories(isActiveOnly = false) {
+  return useQuery({
+    queryKey: ["categories", isActiveOnly],
+    queryFn: () => listCategories(isActiveOnly),
+    staleTime: 1000 * 60 * 5,
+    select: (data) => data.filter(c => c.isMainCategory).sort((a, b) => a.order - b.order),
+  });
+}
+
+export function useSubCategories(parentId: string | null, isActiveOnly = false) {
+  return useQuery({
+    queryKey: ["categories", isActiveOnly],
+    queryFn: () => listCategories(isActiveOnly),
+    staleTime: 1000 * 60 * 5,
+    select: (data) => parentId ? data.filter(c => !c.isMainCategory && c.parentCategoryId === parentId).sort((a, b) => a.order - b.order) : [],
   });
 }
 

@@ -139,6 +139,8 @@
 
 @layer base {
   :root {
+    --header-height: 80px;
+
     /* Premium Dark Mode ONLY - Enforced in root */
     --background: 225 12% 6%;
     /* #0E0F12 Deep Charcoal */
@@ -228,6 +230,15 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-white/20;
   }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 @layer utilities {
@@ -241,5 +252,13 @@
 
   .glass-card {
     @apply bg-card/60 backdrop-blur-md border border-white/5;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
   }
 }

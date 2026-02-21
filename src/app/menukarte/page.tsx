@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, Suspense, useEffect } from "react";
+import { useState, useMemo, Suspense, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { ProductCard } from "@/components/ui/product-card";
 import { CategoryCard } from "@/components/ui/category-card";
@@ -9,7 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { PageContainer } from "@/components/ui/page-container";
 import { useProductsByCategory } from "@/hooks/use-products-by-category";
-import { useCategories } from "@/hooks/use-categories";
+import { useMainCategories, useSubCategories } from "@/hooks/use-categories";
 import { useProduct } from "@/hooks/use-products";
 import { ProductDetailSheet } from "@/components/menukarte/product-detail-sheet";
 import { Loader2, ChevronLeft } from "lucide-react";
@@ -21,7 +21,8 @@ function MenuKarteContent() {
   const searchParams = useSearchParams();
 
   // URL State
-  const categoryId = searchParams.get("category");
+  const mainId = searchParams.get("main");
+  const subId = searchParams.get("sub");
   const productId = searchParams.get("product");
 
   // Local State
@@ -29,17 +30,48 @@ function MenuKarteContent() {
   const [showAvailableOnly, setShowAvailableOnly] = useState(false);
 
   // Data Fetching
-  const { data: categories, isLoading: isCategoriesLoading, isError: isCategoriesError, refetch: refetchCategories } = useCategories(true);
-  const { data: products, isLoading: isProductsLoading, isError: isProductsError, refetch: refetchProducts } = useProductsByCategory(categoryId);
-  // We fetch product detail only if productId exists
+  const { data: mainCategories, isLoading: isMainLoad, isError: isMainErr, refetch: refetchMain } = useMainCategories(true);
+  const { data: subCategories } = useSubCategories(mainId, true);
+
+  // Products fetch ID: prefer sub Id, fallback to main Id. 
+  // If we are looking at a main category without subcategories, we fetch by mainId.
+  const currentFetchId = subId || mainId || null;
+  const { data: products, isLoading: isProductsLoading, isError: isProductsError, refetch: refetchProducts } = useProductsByCategory(currentFetchId);
+
   const { data: productDetail } = useProduct(productId || "");
+
+  // Auto-select first subcategory if main has subcategories but subId is not present
+  useEffect(() => {
+    if (mainId && subCategories && subCategories.length > 0 && !subId && !productId) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("sub", subCategories[0].id);
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    }
+  }, [mainId, subCategories, subId, productId, pathname, router, searchParams]);
 
   // Scroll restoration on category change
   useEffect(() => {
-    if (categoryId && !productId) {
+    if ((mainId || subId) && !productId) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [categoryId, productId]);
+  }, [mainId, subId, productId]);
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-focus search input if focus=search is in URL
+  useEffect(() => {
+    if (searchParams.get("focus") === "search") {
+      // Small timeout to ensure DOM is ready and sticky bar is mounted
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 50);
+
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.delete("focus");
+      // Use replace so we don't mess up history, and no scroll so we stay where we are
+      router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
+    }
+  }, [searchParams, pathname, router]);
 
   // Derived State: Filtered Products
   const filteredProducts = useMemo(() => {
@@ -58,13 +90,19 @@ function MenuKarteContent() {
   }, [products, searchQuery, showAvailableOnly]);
 
   // Handlers
-  const handleCategoryClick = (id: string) => {
+  const handleMainClick = (id: string) => {
     const params = new URLSearchParams();
-    params.set("category", id);
+    params.set("main", id);
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const handleBackToCategories = () => {
+  const handleSubClick = (id: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sub", id);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const handleBackToMain = () => {
     router.push(pathname);
   };
 
@@ -80,8 +118,8 @@ function MenuKarteContent() {
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
-  // --- LAYER A: CATEGORY GALLERY ---
-  if (!categoryId) {
+  // --- LAYER A: MAIN CATEGORY GALLERY ---
+  if (!mainId) {
     return (
       <div className="min-h-screen pb-32">
         <PageContainer className="pt-8 space-y-8">
@@ -90,24 +128,24 @@ function MenuKarteContent() {
             <p className="text-muted-foreground/80 font-light">Wählen Sie eine Kategorie</p>
           </div>
 
-          {isCategoriesLoading ? (
+          {isMainLoad ? (
             <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(140px,1fr))] sm:[grid-template-columns:repeat(auto-fill,minmax(180px,1fr))]">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                 <div key={i} className="h-40 rounded-3xl bg-surface-1 animate-pulse border border-white/5" />
               ))}
             </div>
-          ) : isCategoriesError ? (
-            <ErrorState title={de.common.error} onRetry={() => refetchCategories()} />
-          ) : !categories?.length ? (
+          ) : isMainErr ? (
+            <ErrorState title={de.common.error} onRetry={() => refetchMain()} />
+          ) : !mainCategories?.length ? (
             <EmptyState title="Keine Kategorien gefunden" />
           ) : (
             <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(160px,1fr))] sm:[grid-template-columns:repeat(auto-fill,minmax(200px,1fr))]">
-              {categories.map((cat) => (
+              {mainCategories.map((cat) => (
                 <CategoryCard
                   key={cat.id}
                   title={cat.title}
                   iconName={cat.iconName}
-                  onClick={() => handleCategoryClick(cat.id)}
+                  onClick={() => handleMainClick(cat.id)}
                   className="h-full min-h-[160px]" // Ensures nice sizing
                 />
               ))}
@@ -118,15 +156,18 @@ function MenuKarteContent() {
     );
   }
 
-  // --- LAYER B: PRODUCT BROWSER ---
-  const currentCategory = categories?.find(c => c.id === categoryId);
+  // --- LAYER B: SUB CATEGORY & PRODUCT BROWSER ---
+  const currentMain = mainCategories?.find(c => c.id === mainId);
 
   return (
     <div className="min-h-screen pb-32">
       {/* Sticky Top Nav */}
-      <div className="sticky top-[72px] md:top-[88px] z-30 flex flex-col gap-4 border-b border-white/5 bg-[#0E0F12]/95 px-4 py-4 backdrop-blur-xl sm:px-8 shadow-sm">
+      <div
+        className="sticky z-30 flex flex-col gap-4 border-b border-white/5 bg-[#0E0F12]/95 px-4 py-4 backdrop-blur-xl sm:px-8 shadow-sm"
+        style={{ top: 'calc(var(--header-height) + env(safe-area-inset-top))' }}
+      >
         <button
-          onClick={handleBackToCategories}
+          onClick={handleBackToMain}
           className="flex items-center gap-2 self-start rounded-full bg-surface-1 px-4 py-2 text-sm font-medium text-white/70 backdrop-blur-md transition-all hover:bg-surface-2 hover:text-white border border-white/5 shadow-sm active:scale-95"
         >
           <ChevronLeft className="h-4 w-4 shrink-0" />
@@ -135,15 +176,37 @@ function MenuKarteContent() {
 
         <div className="flex flex-col gap-1">
           <h2 className="text-3xl font-bold tracking-tight text-white drop-shadow-sm flex items-center gap-3">
-            {currentCategory?.title || "Produkte"}
+            {currentMain?.title || "Produkte"}
           </h2>
         </div>
 
+        {/* Subcategories Horizontal Scroll */}
+        {subCategories && subCategories.length > 0 && (
+          <div className="flex gap-2 items-center pt-2 pb-1 scrollbar-hide overflow-x-auto">
+            {subCategories.map((sub) => {
+              const isActive = subId === sub.id;
+              return (
+                <button
+                  key={sub.id}
+                  onClick={() => handleSubClick(sub.id)}
+                  className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium tracking-wide transition-all ${isActive
+                    ? 'bg-[#C9A227]/20 text-[#C9A227] border border-[#C9A227]/30 shadow-[0_0_15px_rgba(201,162,39,0.15)]'
+                    : 'bg-surface-1 text-white/70 border border-white/5 hover:bg-surface-2 hover:text-white'
+                    }`}
+                >
+                  {sub.title}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         <StickySearchBar
+          ref={searchInputRef}
           value={searchQuery}
           onChange={setSearchQuery}
           placeholder={de.menu.searchPlaceholder}
-          className="bg-transparent py-0 border-none static px-0 w-full"
+          className="bg-transparent py-0 border-none static px-0 w-full mt-2"
         />
 
         {/* Quick Filters */}

@@ -10,16 +10,7 @@ import { cn } from "@/lib/utils";
 
 export function Header() {
     const pathname = usePathname();
-    const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
 
     // Close mobile menu on route change
     useEffect(() => {
@@ -35,13 +26,11 @@ export function Header() {
     return (
         <header
             className={cn(
-                "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/5",
-                isScrolled
-                    ? "bg-[#0E0F12]/80 backdrop-blur-md py-3"
-                    : "bg-transparent py-5"
+                "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b border-white/5 bg-[#0E0F12]/80 backdrop-blur-md",
             )}
+            style={{ height: 'calc(var(--header-height) + env(safe-area-inset-top))', paddingTop: 'env(safe-area-inset-top)' }}
         >
-            <div className="container mx-auto px-4 flex items-center justify-between">
+            <div className="container mx-auto px-4 h-full flex items-center justify-between">
                 <Link href="/" className="relative z-50 flex items-center">
                     <div className="relative h-10 w-32">
                         <Image
