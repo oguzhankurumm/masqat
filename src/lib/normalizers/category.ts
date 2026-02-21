@@ -26,7 +26,7 @@ export function normalizeCategory(docId: string, data: DocumentData): CategoryMo
     id: docId,
     title: data.title || 'Untitled Category',
     description: data.description || '',
-    iconName: data.iconName || 'utensils', // Default icon
+    iconName: data.iconName || 'LayoutGrid', // Default lucide icon
     isActive: data.isActive ?? true,
     isMainCategory: data.isMainCategory ?? false,
     order: typeof data.order === 'number' ? data.order : 999,

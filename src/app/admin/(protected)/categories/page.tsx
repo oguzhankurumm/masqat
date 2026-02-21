@@ -78,8 +78,9 @@ export default function AdminCategories() {
           setBlockingProductCount(0)
         }
       })
-    } catch {
-      // Error handled in hook
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to reassign and delete category. Please try again.");
     }
   }
 
@@ -145,20 +146,26 @@ export default function AdminCategories() {
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <Label>Reassign to</Label>
-              <Select value={targetCategoryId} onValueChange={setTargetCategoryId}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories
-                    .filter(c => c.id !== categoryToDelete)
-                    .map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.title}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+              {categories.filter(c => c.id !== categoryToDelete).length > 0 ? (
+                <Select value={targetCategoryId} onValueChange={setTargetCategoryId}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories
+                      .filter(c => c.id !== categoryToDelete)
+                      .map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          {category.title}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <div className="text-sm text-destructive mt-2 p-3 bg-destructive/10 rounded-md">
+                  There are no other categories to reassign products to. Please create another category first.
+                </div>
+              )}
             </div>
           </div>
 

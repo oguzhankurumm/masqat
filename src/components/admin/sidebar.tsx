@@ -38,7 +38,7 @@ const items = [
 export function Sidebar({ className, hideHeader, collapsed: controlledCollapsed, onCollapse }: SidebarProps & { collapsed?: boolean; onCollapse?: (collapsed: boolean) => void }) {
   const pathname = usePathname();
   const [internalCollapsed, setInternalCollapsed] = useState(false);
-  
+
   const isCollapsed = controlledCollapsed !== undefined ? controlledCollapsed : internalCollapsed;
   const toggleCollapse = () => {
     if (onCollapse) {
@@ -96,6 +96,13 @@ export function Sidebar({ className, hideHeader, collapsed: controlledCollapsed,
 
       <div className="border-t p-4">
         <button
+          onClick={async () => {
+            const { auth } = await import("@/lib/firebase/client");
+            const { signOut } = await import("firebase/auth");
+            await signOut(auth);
+            // Router will handle redirect via layout protection, but we can also push directly
+            window.location.href = "/admin/login";
+          }}
           className={cn(
             "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive",
             isCollapsed && "justify-center px-2"

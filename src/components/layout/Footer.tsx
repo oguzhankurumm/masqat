@@ -29,34 +29,32 @@ export function Footer() {
 
                     {/* info */}
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-white/90">{de.footer.hours}</h3>
+                        <Link href="/kontakt" className="block group">
+                            <h3 className="font-semibold text-white/90 group-hover:text-[#C9A227] transition-colors">{de.footer.hours}</h3>
+                        </Link>
                         <ul className="space-y-2 text-sm text-white/60">
-                            <li className="flex gap-2">
-                                <Clock className="w-4 h-4 text-[#C9A227] shrink-0" />
-                                <span>Mo-Do: 18:00 - 02:00</span>
-                            </li>
-                            <li className="flex gap-2 text-transparent select-none">
-                                <Clock className="w-4 h-4 shrink-0" />
-                                <span className="text-white/60">Fr-Sa: 18:00 - 04:00</span>
-                            </li>
-                            <li className="flex gap-2 text-transparent select-none">
-                                <Clock className="w-4 h-4 shrink-0" />
-                                <span className="text-white/60">So: Geschlossen</span>
-                            </li>
+                            {de.footer.hoursList?.map((day, index) => (
+                                <li key={index} className="flex gap-2">
+                                    <Clock className={`w-4 h-4 shrink-0 ${index === 0 ? "text-[#C9A227]" : "text-transparent select-none"}`} />
+                                    <span className={index !== 0 ? "text-white/60" : ""}>{day.day}: {day.time}</span>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
                     {/* Location & Social */}
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-white/90">{de.footer.address}</h3>
-                        <div className="flex gap-2 text-sm text-white/60 mb-6">
-                            <MapPin className="w-4 h-4 text-[#C9A227] shrink-0 mt-0.5" />
-                            <span>
-                                Musterstraße 123
-                                <br />
-                                1010 Wien, Austria
-                            </span>
-                        </div>
+                        <Link href="/kontakt" className="block group">
+                            <h3 className="font-semibold text-white/90 group-hover:text-[#C9A227] transition-colors">{de.footer.address}</h3>
+                            <div className="flex gap-2 text-sm text-white/60 mt-4 mb-6 group-hover:text-white/80 transition-colors">
+                                <MapPin className="w-4 h-4 text-[#C9A227] shrink-0 mt-0.5" />
+                                <span>
+                                    {de.contact.addressLine1}
+                                    <br />
+                                    {de.contact.addressLine2}
+                                </span>
+                            </div>
+                        </Link>
 
                         <h3 className="font-semibold text-white/90 pt-2">{de.footer.socials}</h3>
                         <div className="flex gap-4">

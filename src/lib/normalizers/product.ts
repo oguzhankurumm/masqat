@@ -28,8 +28,8 @@ export function normalizeProduct(docId: string, data: DocumentData): ProductMode
   // Handle image path: ensure it starts with /uploads/ if it looks like a local file
   // But strictly speaking, the report says product.image = "/uploads/images/<file>.webp"
   // so we just pass it through if present, or provide a placeholder.
-  const imagePath = data.image || '/placeholder-food.jpg';
-  
+  const imagePath = data.image || '/uploads/images/placeholder.webp';
+
   return {
     id: docId,
     title: data.title || 'Untitled Item',
