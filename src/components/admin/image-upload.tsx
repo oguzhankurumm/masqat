@@ -6,6 +6,7 @@ import { SmartImage } from "@/components/media/SmartImage";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { compressImage } from "@/lib/compression";
 
 interface ImageUploadProps {
     value: string;
@@ -57,18 +58,30 @@ export function ImageUpload({ value, onChange, disabled }: ImageUploadProps) {
             return;
         }
 
-        // Validate size (e.g., 5MB max)
-        const MAX_SIZE = 5 * 1024 * 1024;
+        // Validate size (e.g., 30MB max)
+        const MAX_SIZE = 30 * 1024 * 1024;
         if (file.size > MAX_SIZE) {
-            toast.error("File is too large. Maximum size is 5MB");
+            toast.error("File is too large. Maximum size is 30MB");
             return;
         }
 
         setIsUploading(true);
 
         try {
+            // Compress image before upload (skip SVG)
+            let compressedFile = file;
+            if (file.type !== "image/svg+xml") {
+                const type = file.type === "image/png" || file.type === "image/webp" ? "image/webp" : "image/jpeg";
+                compressedFile = await compressImage(file, {
+                    maxWidth: 1920,
+                    maxHeight: 1080,
+                    quality: 0.8,
+                    type,
+                });
+            }
+
             const formData = new FormData();
-            formData.append("file", file);
+            formData.append("file", compressedFile);
 
             const response = await fetch("/api/upload", {
                 method: "POST",
@@ -181,7 +194,7 @@ export function ImageUpload({ value, onChange, disabled }: ImageUploadProps) {
                                     Click or drag and drop an image
                                 </p>
                                 <p className="text-xs">
-                                    SVG, PNG, JPG or WEBP (max. 5MB)
+                                    SVG, PNG, JPG or WEBP (max. 30MB)
                                 </p>
                             </div>
                         </div>
