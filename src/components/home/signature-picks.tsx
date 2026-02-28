@@ -9,8 +9,13 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 export function SignaturePicks() {
     const { data: products, isLoading, isError, refetch } = useSignatureProducts()
+    const [isMounted, setIsMounted] = React.useState(false)
 
-    if (isLoading) {
+    React.useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if (!isMounted || isLoading) {
         return (
             <div className="flex gap-4 overflow-hidden">
                 {[1, 2, 3, 4].map(i => (

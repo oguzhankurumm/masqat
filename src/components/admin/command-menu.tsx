@@ -10,11 +10,14 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { useRouter } from "next/navigation"
-import { Layers, LayoutDashboard, Settings, ShoppingBag } from "lucide-react"
+import { Layers, LayoutDashboard, Settings, ShoppingBag, Utensils } from "lucide-react"
+import { useProducts } from "@/hooks/use-products"
 
 export function CommandMenu() {
   const [open, setOpen] = React.useState(false)
   const router = useRouter()
+  // Fetch products so they can be searched quickly
+  const { data: products } = useProducts()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -36,10 +39,10 @@ export function CommandMenu() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-2 rounded-md border border-input bg-muted/50 px-3 py-1.5 text-sm text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground w-full max-w-[240px] justify-between"
+        className="inline-flex items-center gap-2 rounded-md border border-input bg-muted/50 px-3 py-1.5 text-sm text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground w-full justify-between"
       >
         <span className="inline-flex items-center gap-2">
-           Search...
+          Search...
         </span>
         <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
           <span className="text-xs">⌘</span>K
@@ -67,6 +70,17 @@ export function CommandMenu() {
               <span>Settings</span>
             </CommandItem>
           </CommandGroup>
+
+          {products && products.length > 0 && (
+            <CommandGroup heading="Products">
+              {products.map((product) => (
+                <CommandItem key={product.id} value={product.title} onSelect={() => runCommand(() => router.push(`/admin/products/${product.id}`))}>
+                  <Utensils className="mr-2 h-4 w-4 text-muted-foreground" />
+                  <span>{product.title}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          )}
         </CommandList>
       </CommandDialog>
     </>

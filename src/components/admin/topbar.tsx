@@ -20,7 +20,7 @@ export function Topbar({ onMobileMenuOpen }: TopbarProps) {
         >
           <Menu className="h-5 w-5" />
         </Button>
-        <div className="hidden sm:block">
+        <div className="hidden sm:block flex-1 max-w-xl pr-4">
           <CommandMenu />
         </div>
       </div>

@@ -30,6 +30,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { SmartImage } from "@/components/media/SmartImage";
 import { PageHeader } from "@/components/ui/page-header";
+import { ImageUpload } from "@/components/admin/image-upload";
 
 interface ProductFormProps {
   initialData?: Product;
@@ -55,8 +56,6 @@ export function ProductForm({ initialData, onSubmit, isSubmitting }: ProductForm
       ingredients: initialData?.ingredients || [],
     },
   });
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const imagePath = form.watch("image");
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
@@ -252,32 +251,18 @@ export function ProductForm({ initialData, onSubmit, isSubmitting }: ProductForm
                   name="image"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-muted-foreground">Image Path</FormLabel>
+                      <FormLabel className="text-muted-foreground">Product Image</FormLabel>
                       <FormControl>
-                        <Input placeholder="/uploads/..." {...field} className="bg-surface-2 border-none focus-visible:ring-1 focus-visible:ring-primary/50 text-xs font-mono" />
+                        <ImageUpload
+                          value={field.value}
+                          onChange={field.onChange}
+                          disabled={isSubmitting}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-
-                <div className="aspect-[4/3] rounded-xl bg-surface-2 border border-white/5 overflow-hidden flex items-center justify-center relative group">
-                  {imagePath ? (
-                    <>
-                      <SmartImage
-                        path={imagePath}
-                        alt="Preview"
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span className="text-xs text-white font-medium">Preview</span>
-                      </div>
-                    </>
-                  ) : (
-                    <span className="text-muted-foreground text-sm">No Image</span>
-                  )}
-                </div>
               </div>
 
               <div className="rounded-2xl border border-white/5 bg-surface-1 p-6">
